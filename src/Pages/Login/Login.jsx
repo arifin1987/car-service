@@ -1,0 +1,40 @@
+const Login = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const user = { email, password };
+    console.log(user);
+  };
+  return (
+    <div className="my-8 md:border border-blue-600 mx-auto w-1/2 p-12">
+      <h1 className="text-2xl my-6">Login Here</h1>
+      <form onSubmit={handleLogin}>
+        <label htmlFor="">Email:</label>
+        <br />
+        <input
+          className="my-2 px-4 py-2 border"
+          type="email"
+          name="email"
+          id=""
+          placeholder="Email"
+        />
+        <br />
+        <label htmlFor="">Password:</label>
+        <br />
+        <input
+          className="px-4 py-2 border"
+          type="password"
+          name="password"
+          id=""
+          placeholder="Password"
+        />
+        <br />
+        <input className="bg-blue-400 p-2 mt-4" type="submit" value="Submit" />
+      </form>
+    </div>
+  );
+};
+
+export default Login;
