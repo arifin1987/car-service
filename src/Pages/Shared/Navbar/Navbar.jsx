@@ -4,10 +4,11 @@ import { CiMenuBurger } from "react-icons/ci";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const routes = [
     { id: 1, path: "/", name: "Home" },
     { id: 2, path: "/login", name: "Login" },
+    { id: 2, path: "/bookings", name: "Bookings" },
   ];
   return (
     <div>

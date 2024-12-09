@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -6,6 +10,13 @@ const Login = () => {
     const password = e.target.password.value;
     const user = { email, password };
     console.log(user);
+    signIn(email, password)
+      .then((data) => {
+        console.log(data);
+      })
+      .then((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="my-8 md:border border-blue-600 mx-auto w-1/2 p-12">
@@ -31,7 +42,7 @@ const Login = () => {
           placeholder="Password"
         />
         <br />
-        <input className="bg-blue-400 p-2 mt-4" type="submit" value="Submit" />
+        <input className="bg-blue-400 p-2 mt-4" type="submit" value="Login" />
       </form>
     </div>
   );
