@@ -32,8 +32,8 @@ const Checkout = () => {
       });
   };
   return (
-    <div>
-      <h1>{serviceData.title}</h1>
+    <div className="my-2">
+      <h1 className="text-2xl"> Service : {serviceData.title}</h1>
 
       <form onSubmit={handleBookService}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -86,7 +86,7 @@ const Checkout = () => {
           </div>
         </div>
         <div className="form-control mt-6">
-          <input className="btn btn-block" type="submit" value="Checkout" />
+          <input className="btn btn-secondary" type="submit" value="Checkout" />
         </div>
       </form>
     </div>

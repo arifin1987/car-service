@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -44,6 +45,9 @@ const Login = () => {
         <br />
         <input className="bg-blue-400 p-2 mt-4" type="submit" value="Login" />
       </form>
+      <p>
+        New to car service? <Link to="/signup">Sign Up</Link>
+      </p>
     </div>
   );
 };

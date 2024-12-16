@@ -7,7 +7,9 @@ const ServiceCard = ({ service }) => {
       <img src={img} alt="" />
       <h1>{title}</h1>
       <p className="text-red-500">Price:${price}</p>
-      <Link to={`/checkout/${_id}`}>Checkout</Link>
+      <Link to={`/checkout/${_id}`}>
+        <button className="btn btn-primary">Checkout</button>
+      </Link>
     </div>
   );
 };

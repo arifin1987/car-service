@@ -1,35 +1,71 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { CiMenuBurger } from "react-icons/ci";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const routes = [
-    { id: 1, path: "/", name: "Home" },
-    { id: 2, path: "/login", name: "Login" },
-    { id: 2, path: "/bookings", name: "Bookings" },
-  ];
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut();
+  };
+
+  const navItems = (
+    <>
+      {user?.email ? (
+        <>
+          <li>
+            <Link to="/bookings">Bokings</Link>
+          </li>
+          <li>
+            <button onClick={handleLogout}>Log Out</button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to="/login">Log in</Link>
+        </li>
+      )}
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+    </>
+  );
   return (
     <div>
-      <div onClick={() => setOpen(!open)} className="text-2xl md:hidden">
-        {open ? <MdOutlineRestaurantMenu /> : <CiMenuBurger />}
+      <div className="navbar bg-base-100">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              {navItems}
+            </ul>
+          </div>
+          <a className="btn btn-ghost text-xl">Car Service</a>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{navItems}</ul>
+        </div>
+        <div className="navbar-end">
+          <a className="btn">Button</a>
+        </div>
       </div>
-      <ul
-        className={`md:flex md:static absolute  bg-orange-400 p-6 text-white ${
-          open ? "top-5" : "-top-60"
-        }`}
-      >
-        {routes.map((route) => (
-          <NavLink
-            className="mr-8 flex flex-col"
-            to={route.path}
-            key={route.id}
-          >
-            {route.name}
-          </NavLink>
-        ))}
-      </ul>
     </div>
   );
 };
