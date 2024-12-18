@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -29,6 +28,28 @@ const Bookings = () => {
           }
         });
     }
+  };
+
+  const handleConfirm = (id) => {
+    fetch(`http://localhost:5000/bookings/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "confirm" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          const remaining = bookings.filter((booking) => booking._id != id);
+          const updated = bookings.find((booking) => booking._id == id);
+          updated.status = "confirm";
+          const newBookings = [updated, ...remaining];
+          setBookings(newBookings);
+          console.log(updated);
+        }
+      });
   };
 
   return (
@@ -60,19 +81,18 @@ const Bookings = () => {
                 <td>{booking.date}</td>
                 <td>${booking.price}</td>
                 <td>
-                  <Link to={`/dashboard/update/${booking._id}`}>
-                    <button>Edit </button>
-                  </Link>
+                  {booking.status === "confirm" ? (
+                    "confirmed"
+                  ) : (
+                    <button onClick={() => handleConfirm(booking._id)}>
+                      Please Confirm
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button onClick={() => handleDelete(booking._id)}>
                     Delete
                   </button>
-                </td>
-                <td>
-                  <Link to="/dashboard/create-donation">
-                    <button>Add </button>
-                  </Link>
                 </td>
               </tr>
             ))}
