@@ -38,16 +38,15 @@ const Bookings = () => {
       },
       body: JSON.stringify({ status: "confirm" }),
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.modifiedCount > 0) {
-          const remaining = bookings.filter((booking) => booking._id != id);
-          const updated = bookings.find((booking) => booking._id == id);
-          updated.status = "confirm";
-          const newBookings = [updated, ...remaining];
-          setBookings(newBookings);
-          console.log(updated);
+          const remaining = bookings.filter((booking) => booking._id !== id);
+          const updatedId = bookings.find((booking) => booking._id === id);
+          updatedId.status = "confirm";
+          const updatedInfo = [updatedId, ...remaining];
+          console.log(updatedInfo);
+          setBookings(updatedInfo);
         }
       });
   };
