@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ServiceCard from "../ServiceCard/ServiceCard";
+import axios from "axios";
 
 const Service = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/services")
-      .then((response) => response.json())
-      .then((data) => setServices(data));
+    axios
+      .get("http://localhost:5000/services", { withCredentials: true })
+      .then((res) => setServices(res.data));
+    // fetch("http://localhost:5000/services")
+    //   .then((response) => response.json())
+    //   .then((data) => setServices(data));
   }, []);
   return (
     <div>
